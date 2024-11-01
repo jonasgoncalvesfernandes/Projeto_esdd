@@ -4,76 +4,59 @@
 #include <stdbool.h>
 
 #define MAX 1000000
-#define TAM 10000
+#define DIV 10000
 
 void criar_vetor_aleatorio(int vetor[], int tam){
     srand(time(NULL));
 
     vetor[0] = rand() % 10;
-    for (int i = 1; i < tam; i++)
-    {
+    for (int i = 1; i < tam; i++) {
         vetor[i] = vetor[i - 1] + rand() % 10;
     }
 }
-void preenche_auxiliar(int vetor_auxiliar[], int tam, int tam2)
-{
+
+void preenche_auxiliar(int vetor_auxiliar[], int tam, int tam2) {
     int contador_auxiliar = 0;
 
-    for (int contador_principal = 0; contador_principal < tam; contador_principal += tam / tam2)
-    {
+    for (int contador_principal = 0; contador_principal < tam; contador_principal += tam2) {
         vetor_auxiliar[contador_auxiliar] = contador_principal;
         contador_auxiliar++;
     }
 }
 
-bool busca_indexada(int vetor[], int chave, int arquivo_auxiliar[])
-{
-    bool achou = false;
+int busca_indexada(int vetor[], int chave, int arquivo_auxiliar[], int tam_aux) {
     int inicio, fim;
-    for (int j = 0; j < TAM; j++)
-    {
-        if (chave < vetor[arquivo_auxiliar[j]])
-        {
+    for (int j = 1; j < tam_aux; j++) {
+        if (chave < vetor[arquivo_auxiliar[j]]) {
             inicio = arquivo_auxiliar[j - 1];
             fim = arquivo_auxiliar[j];
-            for (int i = inicio; i < fim; i++)
-            {
-                if (vetor[i] == chave && achou == false)
-                {
-                    achou = true;
+            for (int i = inicio; i < fim; i++) {
+                if (vetor[i] == chave) {
+                    return i; // Retorna a posição onde a chave foi encontrada
                 }
             }
         }
     }
-    return achou;
+    return -1; 
 }
 
-int main()
-{
-
-    int vetor[MAX], arquivo_auxiliar[TAM], chave;
+int main() {
+    int tamanho = MAX / DIV;
+    int vetor[MAX], arquivo_auxiliar[tamanho], chave;
 
     printf("Digite um numero para busca\n");
     scanf("%d", &chave);
+
     criar_vetor_aleatorio(vetor, MAX);
-    preenche_auxiliar(arquivo_auxiliar,MAX, TAM);
-    busca_indexada(vetor, chave, arquivo_auxiliar);
+    preenche_auxiliar(arquivo_auxiliar, MAX, DIV);
 
-    if ( busca_indexada(vetor, chave, arquivo_auxiliar))
-    {
-        printf("O numero informado existe no arquivo");
-    }
-    else
-    {
-        printf("O numero informado nao existe no arquivo");
-    }
+    int posicao = busca_indexada(vetor, chave, arquivo_auxiliar, tamanho);
 
-   /* for (int i = 0; i < MAX; i++)
-    {
-        printf("%d\n", vetor[i]);
-    } repeticao para conseguir vizualizar se o numero realmente esta no arquivo*/
-    
+    if (posicao != -1) {
+        printf("O numero informado existe no arquivo e se encontra na posição %d\n", posicao);
+    } else {
+        printf("O numero informado nao existe no arquivo\n");
+    }
 
     return 0;
 }
-/*se a chave for menor que o kindex vou comparar entre kindex menos um. no vetor principal */
