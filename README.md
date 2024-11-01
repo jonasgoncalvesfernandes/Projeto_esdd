@@ -1,0 +1,3 @@
+A busca sequencial indexada é um método que combina a busca sequencial com o uso de índices para melhorar a eficiência na busca de dados em uma estrutura, como um vetor ou lista.
+Um índice é criado, apontando para posições específicas na lista de dados. Esse índice é construído a partir de um subconjunto dos dados, geralmente com um tamanho fixo, que permite localizar rapidamente um bloco de dados.
+No trabalho em questão, utilizamos a estratégia de criar um índice para otimizar nossa busca. Essa abordagem permite limitar a área de busca, o que resulta em uma busca mais rápida, mas utiliza mais memória para isso.
