@@ -15,11 +15,11 @@ void criar_vetor_aleatorio(int vetor[], int tam){
         vetor[i] = vetor[i - 1] + rand() % 10;
     }
 }
-void preenche_auxiliar(int vetor_auxiliar[], int tam)
+void preenche_auxiliar(int vetor_auxiliar[], int tam, int tam2)
 {
     int contador_auxiliar = 0;
 
-    for (int contador_principal = 0; contador_principal < tam; contador_principal += tam / 10)
+    for (int contador_principal = 0; contador_principal < tam; contador_principal += tam / tam2)
     {
         vetor_auxiliar[contador_auxiliar] = contador_principal;
         contador_auxiliar++;
@@ -56,7 +56,7 @@ int main()
     printf("Digite um numero para busca\n");
     scanf("%d", &chave);
     criar_vetor_aleatorio(vetor, MAX);
-    preenche_auxiliar(arquivo_auxiliar, TAM);
+    preenche_auxiliar(arquivo_auxiliar,MAX, TAM);
     busca_indexada(vetor, chave, arquivo_auxiliar);
 
     if ( busca_indexada(vetor, chave, arquivo_auxiliar))
@@ -68,10 +68,10 @@ int main()
         printf("O numero informado nao existe no arquivo");
     }
 
-    for (int i = 0; i < MAX; i++)
+   /* for (int i = 0; i < MAX; i++)
     {
         printf("%d\n", vetor[i]);
-    }
+    } repeticao para conseguir vizualizar se o numero realmente esta no arquivo*/
     
 
     return 0;
